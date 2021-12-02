@@ -49,4 +49,48 @@ foreach (var input in slidingWindow)
 
 Console.WriteLine($"How many sliding window measurements are larger than the previous: {increments}");
 
+var horizontal = 0;
+var depth = 0;
+
+var day2Input = File.ReadAllLines("./Inputs/Day2.txt");
+foreach (var input in day2Input)
+{
+    var splitInput = input.Split(' ');
+    var movement = splitInput[0];
+    var value = int.Parse(splitInput[1]);
+    if (movement == "down")
+        depth += value;
+    else if (movement == "up")
+        depth -= value;
+    else
+        horizontal += value;
+}
+
+var result = horizontal * depth;
+Console.WriteLine($"Horizontal position x depth = {result}");
+
+horizontal = 0;
+depth = 0;
+var aim = 0;
+
+foreach (var input in day2Input)
+{
+    var splitInput = input.Split(' ');
+    var movement = splitInput[0];
+    var value = int.Parse(splitInput[1]);
+    if (movement == "down")
+        aim += value;
+    else if (movement == "up")
+        aim -= value;
+    else
+    {
+        horizontal += value;
+        if (aim != 0)
+            depth += value * aim;
+    }
+}
+
+result = horizontal * depth;
+Console.WriteLine($"Horizontal position x depth (with aim) = {result}");
+
 Console.ReadLine();
